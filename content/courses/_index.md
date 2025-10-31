@@ -1,4 +1,4 @@
 ---
 title: "Courses"
-description: "Courses on philology by Professor Dr von Igelfeld and esteemed colleagues. For undergraduate and graduate students."
+description: "Graduate and undergraduate courses taught by Professor Graham Ambrose in public administration and public policy at NC State University."
 ---
