@@ -172,58 +172,6 @@ The instructor reserves the right to make modifications to the syllabus and cour
 ### Note on Class Meeting Time
 Should an emergency or unforeseen circumstances arise for the instructor, it may be necessary to cancel a class meeting. Should the faculty member not be able to meet the class at the regularly-scheduled time, the class will be notified via Moodle and/or email, with as much advance notice as is possible. Alternative online activities or class sessions will be provided within 24 hours of the cancellation to provide content and activities as originally planned for the class meeting. Be sure to check announcements and/or Moodle email on the days of class.
 
-## University Policies
-NC State University Policies, Regulations and Rules: Students are responsible for reviewing the PRRs which pertain to their course rights and responsibilities. These include:
-- http://policies.ncsu.edu/policy/pol-04-25-05 (Equal Opportunity and Non-discrimination Policy Statement),  
-- http://oied.ncsu.edu/home/ (Office for Institutional Equity and Diversity),  
-- http://policies.ncsu.edu/policy/pol-11-35-01 (Code of Student Conduct),  
-- http://policies.ncsu.edu/regulation/reg-02-50-03 (Grades and Grade Point Average),  
-- https://policies.ncsu.edu/regulation/reg-02-20-15 (Credit-Only Courses),  
-- https://policies.ncsu.edu/regulation/reg-02-20-04 (Audits), and  
-- https://policies.ncsu.edu/regulation/reg-02-50-03 (Incompletes).
-
-### University Non-Discrimination Policies
-It is the policy of the State of North Carolina to provide equality of opportunity in education and employment for all students and employees. Accordingly, the university does not practice or condone unlawful discrimination in any form against students, employees or applicants on the grounds of race, color, religion, creed, sex, national origin, age, disability, or veteran status. See https://policies.ncsu.edu/category/campus-environment/non-discrimination.
-
-Reasonable accommodations will be made for students with verifiable disabilities. In order to take advantage of available accommodations, students must register with Disability Services Office in Suite 2221, Student Health Center, Campus Box 7509, 919-515-7653. https://dso.dasa.ncsu.edu/ . For more information on NC State's policy on working with students with disabilities, please see the Academic Accommodations for Students with Disabilities Regulation (REG02.20.01) https://policies.ncsu.edu/regulation/reg-02-20-01 .
-
-### Writing and Speaking Tutorial Services
-If writing is difficult for you, please visit the Writing and Speaking Tutorial Services to review drafts of assignments before they are due. The Service offers free one-on-one consultation with experienced tutors who can help with all levels and stages of writing. There are six locations around campus that offer drop-in services. For more information go to: https://asc.dasa.ncsu.edu .
-
-### Academic integrity
-The University’s Code of Student Conduct (https://policies.ncsu.edu/policy/pol-11-35-01) specifically addresses academic integrity in parts 7-9. Students should familiarize themselves with this policy. Plagiarism is of particular concern. In any case, any instance of plagiarism will result in a failing mark for the assignment. Other forms of misconduct outlined at this site will be similarly addressed. This list of resources and authorities is neither exclusive nor exhaustive, and any violation of academic integrity as traditionally understood in the American scholarly context will be referred for University action.
-
-Academic dishonesty includes the following offenses:
-1. Claiming as your own work a paper written by another student
-2. Turning in a paper that contains paraphrases of someone else's ideas but does not give proper credit to that person for those ideas
-3. Turning in a paper that is largely a restatement in your own words of a paper written by someone else, even if you give credit to that person for those ideas. The thesis and organizing principles of a paper must be your own
-4. Turning in a paper that uses the exact words of another author without using quotation marks, even if proper credit is given in a citation, or that changes the words only slightly and claims them to be paraphrases
-5. Turning in the same paper, even in a different version, for two different courses without the permission of both professors involved.
-
-If a student is found to have committed one of the above offenses, he/she will receive a failing grade on the assignment or exam. The case may also be sent for University action concerning the student. Please note that I may use Turnitin as a part of this course to help me ensure the academic integrity of submitted works.
-
-### Technological Requirements and Electronically-hosted Course Components
-Expectations are that students will have both a computer and reliable internet connection to support access to course resources (i.e., Moodle). If you need access to additional technological support, please alert the instructor or contact the Libraries’ Technology Lending Service (https://www.lib.ncsu.edu/devices).
-
-Furthermore, students may be required to disclose personally identifiable information to other students in the course, via electronic tools like email or web postings, where relevant to the course. Examples include online discussions of class topics, and posting of student coursework. All students are expected to respect the privacy of each other by not sharing or using such information outside the course.
-
-### Health and Well-Being Resources
-These are difficult times, and academic and personal stress are natural results. Everyone is encouraged to take care of themselves and their peers. If you need additional support, there are many resources on campus to help you:
-- Counseling Center [(NCSU Counseling Center)](https://counseling.dasa.ncsu.edu/)
-- Student Health Services [(Campus Health)](https://healthypack.dasa.ncsu.edu/)
-- If the personal behavior of a classmate concerns or worries you, either for the classmate’s well-being or yours, we encourage you to report this behavior to the NC State CARES team: [(Share a Concern)](https://prevention.dasa.ncsu.edu/nc-state-cares/about/).
-- If you or someone you know are experiencing food, housing or financial insecurity, please see the Pack Essentials Program [(Pack Essentials)](https://packessentials.dasa.ncsu.edu/).
-
-### Need Help?
-If you find yourself in a place where you need help, academically or otherwise, please review these Step-by-Step Help Topics.
-
-### Other Important Resources
-- Keep Learning: [Keep Learning](https://dasa.ncsu.edu/academics/keep-learning/)
-- Academic Success Center (tutoring, drop in advising, career and wellness advising): [Academic Success Center](https://asc.dasa.ncsu.edu/)
-- Introduction to Zoom for students: https://youtu.be/5LbPzzPbYEw
-- Learning with Moodle, a student’s guide to using Moodle: https://moodle-projects.wolfware.ncsu.edu/course/view.php?id=226 
-- NC State Libraries [Technology Lending Program](https://www.lib.ncsu.edu/borrow/techlending).
-
 ---
 
 ## Download Full Syllabus

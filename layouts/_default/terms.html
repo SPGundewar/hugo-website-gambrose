@@ -3,17 +3,77 @@
 <header class="page-header">
 </header>
 
-<ul class="terms-tags">
-    {{- $type := .Type }}
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
-    {{- $name := .Name }}
-    {{- $count := .Count }}
-    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
-    <li>
-        <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
-    </li>
-    {{- end }}
-    {{- end }}
+{{/* Only enhance the Tags terms page */}}
+{{- if eq .Data.Plural "tags" }}
+
+<div class="tag-search-wrap" style="margin:12px 0 18px 0;">
+  <label for="tagsFilter" class="sr-only">Filter tags</label>
+  <input id="tagsFilter" type="search" placeholder="Filter tags…" aria-label="Filter tags"
+    style="width:100%;padding:10px 12px;border:1px solid #e0e0e0;border-radius:10px;">
+  <div id="tagsMeta" style="margin-top:6px;opacity:.75;font-size:.95em;">
+    <span id="tagsCount"></span> tags
+  </div>
+</div>
+
+<ul id="tagsList" class="terms-tags">
+  {{- $type := .Type }}
+  {{- range $key, $value := .Data.Terms.Alphabetical }}
+  {{- $name := .Name }}
+  {{- $count := .Count }}
+  {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+  <li class="term">
+    <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup></a>
+  </li>
+  {{- end }}
+  {{- end }}
 </ul>
+
+<script>
+(function () {
+  const input = document.getElementById('tagsFilter');
+  const list = document.getElementById('tagsList');
+  const items = list ? Array.from(list.querySelectorAll('.term')) : [];
+  const countEl = document.getElementById('tagsCount');
+
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get('q') || '';
+  if (q) input.value = q;
+
+  function apply() {
+    const needle = (input.value || '').trim().toLowerCase();
+    let shown = 0;
+    items.forEach(li => {
+      const text = li.textContent.toLowerCase();
+      const ok = !needle || text.includes(needle);
+      li.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    });
+    if (countEl) countEl.textContent = shown;
+    const url = new URL(window.location.href);
+    if (needle) url.searchParams.set('q', needle); else url.searchParams.delete('q');
+    history.replaceState(null, '', url.toString());
+  }
+  input.addEventListener('input', apply);
+  apply();
+})();
+</script>
+
+{{- else }}
+
+{{/* Fallback: your original template for all other taxonomies */}}
+<ul class="terms-tags">
+  {{- $type := .Type }}
+  {{- range $key, $value := .Data.Terms.Alphabetical }}
+  {{- $name := .Name }}
+  {{- $count := .Count }}
+  {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+  <li>
+    <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup></a>
+  </li>
+  {{- end }}
+  {{- end }}
+</ul>
+
+{{- end }}
 
 {{- end }}

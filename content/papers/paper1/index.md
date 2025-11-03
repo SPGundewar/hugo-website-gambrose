@@ -1,61 +1,24 @@
 ---
-title: "Unusual Uses For Olive Oil" 
-date: 2013-01-15
-tags: []
-author: ["Detlev Amadeus Unterholzer","Moritz-Maria von Igelfeld"]
-description: "This paper reviews unusual uses for olive oil throughout the Mediterranean world. Published in the Journal of Oleic Science, 2013." 
-summary: "This paper reviews unusual uses for olive oil throughout the Mediterranean world. It highlights in particular the challengs arising from excessive or unorthodox consumption of olive oil." 
-cover:
-    image: "paper1.png"
-    alt: "Some Uses For Olive Oil"
-    relative: true
-editPost:
-    URL: "https://github.com/pmichaillat/hugo-website"
-    Text: "Journal of Oleic Science"
-
+title: "Is gardening associated with greater happiness of urban residents? A multi-activity, dynamic assessment in the Twin-Cities region, USA"
+date: 2020-01-01
+author: "Graham Ambrose; Kirti Das; Yingling Fan; Anu Ramaswami"
+description: "Dynamic, multi-activity assessment of whether gardening is associated with higher momentary happiness among urban residents."
+summary: "Analyzes self-reported happiness across daily activities to evaluate the relationship between gardening and emotional well-being in the Twin Cities."
+tags: ["Urban Gardening","Happiness","Emotional Well-being","Twin Cities","Urban Planning","Activity Sampling"]
+showToc: false
+disableAnchoredHeadings: true
+journal: "Landscape and Urban Planning"
+volume: ""
+issue: ""
+pages: "103776"
+doi: "10.1016/j.landurbplan.2020.103776"
 ---
 
----
+## Links
 
-##### Download
+- 📄 **PDF:** [Download](ambrose_das_fan_ramaswami_2020_gardening_happiness.pdf)
+- 🌐 **Publisher page:** <https://doi.org/10.1016/j.landurbplan.2020.103776>
 
-+ [Paper](paper1.pdf)
-+ [Online appendix](appendix1.pdf)
-+ [Code and data](https://github.com/pmichaillat/feru)
+## Citation
 
----
-
-##### Abstract
-
-This paper reviews unusual uses for olive oil throughout the Mediterranean world. It highlights in particular the challengs arising from excessive or unorthodox consumption of olive oil. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
----
-
-##### Figure 6: Some Uses For Olive Oil
-
-![](paper1.png)
-
----
-
-##### Citation
-
-Unterholzer, Detlev A., and  Moritz-Maria von Igelfeld. 2013. "Unusual Uses For Olive Oil." *Journal of Oleic Science* 34 (1): 449–489. http://www.alexandermccallsmith.com/book/unusual-uses-for-olive-oil.
-
-```BibTeX
-@article{UI13,
-author = {Detlev A. Unterholzer and Moritz-Maria von Igelfeld},
-year = {2013},
-title ={Unusual Uses For Olive Oil},
-journal = {Journal of Oleic Science},
-volume = {34},
-number = {1},
-pages = {449--489},
-url = {http://www.alexandermccallsmith.com/book/unusual-uses-for-olive-oil}}
-```
-
----
-
-##### Related material
-
-+ [Presentation slides](presentation1.pdf)
-+ [Summary of the paper](https://www.penguinrandomhouse.com/books/110403/unusual-uses-for-olive-oil-by-alexander-mccall-smith/)
+Ambrose, G., K. Das, Y. Fan, and A. Ramaswami. 2020. “Is gardening associated with greater happiness of urban residents? A multi-activity, dynamic assessment in the Twin-Cities region, USA.” *Landscape and Urban Planning*, Article 103776. https://doi.org/10.1016/j.landurbplan.2020.103776
