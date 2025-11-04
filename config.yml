@@ -27,6 +27,9 @@ menu:
         - name: Data
           url: data/
           weight: 4 
+        - name: Latest News
+          url: news/
+          weight: 1
 
 params:
     description: "This website hosts Graham Ambrose's research papers, books, course materials, data, curriculum vitae, and contact information."
@@ -57,7 +60,7 @@ params:
           title: Graham Ambrose
           subtitle: " I am a public administration scholar focusing on the fields of collaborative governance and policy process with an expertise and interest in local food and environmental governance and policy design."
           description: "My research utilizes a policy process lens to explore representation in collaborative fora and the evolution of policy design, examining how diverse participation and institutional dynamics shape governance outcomes."
-          imageUrl: "1652881002953.jpeg"
+          imageUrl: "profile-picture.jpeg"
           imageWidth: 160
           imageHeight: 160
           buttons:
@@ -75,6 +78,9 @@ params:
               url: tags/
             - name: Archive
               url: archive/
+            - name: Latest News
+              url: news/
+
 
     socialIcons:
         - name: CV

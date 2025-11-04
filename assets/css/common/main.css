@@ -74,3 +74,67 @@ div.highlight:hover .copy-code,
 pre:hover .copy-code {
     display: block;
 }
+
+
+/* Latest news block */
+
+.home-news {
+    margin-top: 2rem;
+}
+
+.home-news-title {
+    margin: 0 0 .5rem 0;
+}
+
+.home-news-card {
+    display: grid;
+    grid-template-columns: 1fr 140px;
+    /* text + reserved right image */
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    /* rounded, like buttons */
+    background: var(--entry);
+    /* PaperMod card-style bg */
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+.home-news-card.no-image {
+    grid-template-columns: 1fr;
+    /* let text use full width if no image */
+}
+
+.home-news-card .news-title {
+    margin: .1rem 0 .15rem 0;
+    line-height: 1.25;
+}
+
+.home-news-card .news-meta {
+    opacity: .7;
+    margin: 0 0 .35rem 0;
+    font-size: .95em;
+}
+
+.home-news-card .news-summary {
+    margin: 0;
+    opacity: .95;
+}
+
+.home-news-card .news-thumb {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.home-news-card .news-thumb img {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.home-news-more {
+    margin-top: .6rem;
+    text-decoration: underline;
+}
