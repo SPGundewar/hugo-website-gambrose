@@ -15,8 +15,6 @@ doi: "10.1007/s00267-022-01688-7"
 ---
 
 ## Links
-
-- 📄 **PDF** [Download](siddiki_ambrose_2023_envmgmt_ej_councils.pdf)
 - 🌐 **Publisher page:** <https://doi.org/10.1007/s00267-022-01688-7>
 
 ## Citation

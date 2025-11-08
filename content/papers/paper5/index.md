@@ -14,6 +14,10 @@ pages: "576–606"
 doi: "10.1111/ropr.12614"
 ---
 
+## Abstract
+
+The formal engagement of diverse stakeholder groups in environmental policy design and implementation is increasingly common. While engaging diverse stakeholders in common fora can help address complex environmental dilemmas, insofar as different stakeholders have varying perspectives and resources to contribute, this same variance can lead to intractable conflicts. While policy scholars have developed various conceptual approaches to understanding conflict in the policy process, few scholars have applied conceptual approaches to understand how policy conflicts are reflected in interpersonal communications among diverse stakeholders. In this article, we draw on environmental justice council meeting minutes and use qualitative, computational, and statistical methods to analyze, over time: (i) the extent and severity of policy conflict observed among council actors; (ii) the association between actor-level attributes and conflict, as conveyed in two-way communication between actors; (iii) the association between actor's sector and change in conflict; and (iv) variation in conflict across council activities. By exploring the overtime association between policy conflict and attributes of policy actors (e.g., sectoral affiliation and interpersonal attributes), our analysis addresses not only the influence of the number of interactions for an actor at the meeting but also how they are interacting at the meeting by leveraging their position in the meeting communication network. Our article contributes to the study of the public policy process and collaborative governance, drawing attention to how conflict materializes in a collaborative forum engaged in policy making.
+
 ## Links
 
 - 📄 **PDF:** [Download](paper5.pdf)

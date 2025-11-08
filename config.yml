@@ -27,9 +27,6 @@ menu:
         - name: Data
           url: data/
           weight: 4 
-        - name: Latest News
-          url: news/
-          weight: 1
 
 params:
     description: "This website hosts Graham Ambrose's research papers, books, course materials, data, curriculum vitae, and contact information."
@@ -76,11 +73,7 @@ params:
               url: books/
             - name: Tags
               url: tags/
-            - name: Archive
-              url: archive/
-            - name: Latest News
-              url: news/
-
+  
 
     socialIcons:
         - name: CV
@@ -99,7 +92,7 @@ params:
         - name: Google Scholar
           url: https://scholar.google.com/citations?user=MZ5VmHMAAAAJ&hl=en&oi=sra
         - name: GitHub
-          url: https://github.com/pmichaillat
+          url:  https://github.com/ambro034
 
     assets:
         disableScrollBarStyle: true

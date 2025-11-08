@@ -14,6 +14,10 @@ pages: "425–443"
 doi: "10.5334/ijc.1335"
 ---
 
+## Abstract
+
+Computational Institutional Science (CIS) is an emerging stream of social science research performing institutional analysis with computational methods. While such scholarship is garnering increased attention, it draws on many different theories and engages disparate disciplinary backgrounds. Thus, this article provides an overview of CIS articles utilizing agent-based modeling, a computer simulation experiment method, to better understand critical theoretical lenses and topics. More specifically, this article clusters and analyzes 148 articles based on commonalities and differences empirically derived from their overlapping citations (i.e., citation cluster) and abstract content (i.e., topic cluster). Based on our analysis, we discuss the trends observed across cluster types and the overlap between them to better situate CIS inquiry.
+
 ## Links
 
 - 📄 **PDF:** [Download](paper9.pdf)
