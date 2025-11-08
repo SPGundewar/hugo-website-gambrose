@@ -1,0 +1,11 @@
+{{/* Search CSS */}}
+{{- $searchCss := resources.Get "css/search.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $searchCss.RelPermalink }}" integrity="{{ $searchCss.Data.Integrity }}"/>
+
+{{/* Fuse core */}}
+{{- $fuse := resources.Get "js/fuse.basic.min.js" | fingerprint -}}
+<script defer src="{{ $fuse.RelPermalink }}" integrity="{{ $fuse.Data.Integrity }}"></script>
+
+{{/* Fastsearch bootstrap with Fuse options from config (optional) */}}
+{{- $fast := resources.Get "js/fastsearch.js" | js.Build (dict "params" site.Params.search) | fingerprint -}}
+<script defer src="{{ $fast.RelPermalink }}" integrity="{{ $fast.Data.Integrity }}"></script>

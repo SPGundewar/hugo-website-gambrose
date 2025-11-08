@@ -7,6 +7,10 @@
     border: 1px solid var(--border);
 }
 
+#searchbox input:focus {
+    border-color: var(--secondary);
+}
+
 #searchResults li {
     list-style: none;
     border-radius: var(--radius);
@@ -21,6 +25,11 @@
     width: 100%;
 }
 
+#searchResults li:active {
+    transition: transform 0.1s;
+    transform: scale(0.98);
+}
+
 #searchResults a {
     position: absolute;
     width: 100%;
@@ -31,5 +40,6 @@
 }
 
 #searchResults .focus {
+    transform: scale(0.98);
     border: 1px solid var(--darkcolor);
 }

@@ -1,3 +1,6 @@
+outputs:
+  home: ["HTML", "RSS", "JSON"]
+
 baseURL: "https://pascalmichaillat.org/hugo-website/" 
 title: Graham Ambrose
 theme: PaperMod
@@ -27,6 +30,9 @@ menu:
         - name: Data
           url: data/
           weight: 4 
+        - name: Search
+          url: search/
+          weight: 1
 
 params:
     description: "This website hosts Graham Ambrose's research papers, books, course materials, data, curriculum vitae, and contact information."
@@ -73,6 +79,8 @@ params:
               url: books/
             - name: Tags
               url: tags/
+            - name: Search
+              url: search/
   
 
     socialIcons:
