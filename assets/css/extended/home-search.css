@@ -1,0 +1,47 @@
+/* Make the embedded search section span across the profile grid */
+
+.profile_inner .home-search-wrapper {
+    grid-column: 1 / -1;
+    /* spans both columns if profile uses grid */
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.profile_inner #searchbox {
+    width: 100%;
+}
+
+.profile_inner #searchbox input {
+    width: 100%;
+    display: block;
+}
+
+
+/* optional: tighten result spacing on home */
+
+.profile_inner #searchResults {
+    margin: 0px 0;
+}
+
+.profile_inner #searchResults li {
+    padding: 0px;
+}
+
+.home-search {
+    margin-top: 1rem;
+}
+
+.home-search #searchInput {
+    width: 100%;
+    display: block;
+}
+
+.home-search #searchResults {
+    max-height: 420px;
+    overflow: auto;
+    padding-left: 0;
+}
+
+.home-search #searchResults li {
+    list-style: none;
+}

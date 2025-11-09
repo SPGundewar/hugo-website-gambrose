@@ -1,152 +1,212 @@
 import * as params from '@params';
 
-let fuse; // holds our search engine
-let resList = document.getElementById('searchResults');
-let sInput = document.getElementById('searchInput');
-let first, last, current_elem = null
+let fuse; // Fuse instance
+const resList = document.getElementById('searchResults');
+const sInput  = document.getElementById('searchInput');
+
+let first, last, current_elem = null;
 let resultsAvailable = false;
 
-// load our search index
-window.onload = function () {
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                let data = JSON.parse(xhr.responseText);
-                if (data) {
-                    // fuse.js options; check fuse.js website for details
-                    let options = {
-                        distance: 100,
-                        threshold: 0.4,
-                        ignoreLocation: true,
-                        keys: [
-                            'title',
-                            'permalink',
-                            'summary',
-                            'content'
-                        ]
-                    };
-                    if (params.fuseOpts) {
-                        options = {
-                            isCaseSensitive: params.fuseOpts.iscasesensitive ?? false,
-                            includeScore: params.fuseOpts.includescore ?? false,
-                            includeMatches: params.fuseOpts.includematches ?? false,
-                            minMatchCharLength: params.fuseOpts.minmatchcharlength ?? 1,
-                            shouldSort: params.fuseOpts.shouldsort ?? true,
-                            findAllMatches: params.fuseOpts.findallmatches ?? false,
-                            keys: params.fuseOpts.keys ?? ['title', 'permalink', 'summary', 'content'],
-                            location: params.fuseOpts.location ?? 0,
-                            threshold: params.fuseOpts.threshold ?? 0.4,
-                            distance: params.fuseOpts.distance ?? 100,
-                            ignoreLocation: params.fuseOpts.ignorelocation ?? true
-                        }
-                    }
-                    fuse = new Fuse(data, options); // build the index from the json file
-                }
-            } else {
-                console.log(xhr.responseText);
-            }
-        }
-    };
-    xhr.open('GET', "../index.json");
-    xhr.send();
-}
-
+// ---------- helpers ----------
 function activeToggle(ae) {
-    document.querySelectorAll('.focus').forEach(function (element) {
-        // rm focus class
-        element.classList.remove("focus")
-    });
-    if (ae) {
-        ae.focus()
-        document.activeElement = current_elem = ae;
-        ae.parentElement.classList.add("focus")
-    } else {
-        document.activeElement.parentElement.classList.add("focus")
-    }
+  document.querySelectorAll('.focus').forEach(el => el.classList.remove('focus'));
+  if (ae) {
+    ae.focus();
+    document.activeElement = current_elem = ae;
+    ae.parentElement.classList.add('focus');
+  } else if (document.activeElement && document.activeElement.parentElement) {
+    document.activeElement.parentElement.classList.add('focus');
+  }
 }
 
 function reset() {
+  resultsAvailable = false;
+  if (resList) resList.innerHTML = '';
+  if (sInput) {
+    sInput.value = '';
+    sInput.focus();
+  }
+}
+
+function debounce(fn, delay) {
+  let id;
+  return (...args) => {
+    clearTimeout(id);
+    id = setTimeout(() => fn.apply(null, args), delay);
+  };
+}
+
+function getFuseOptions() {
+  // default options
+  let options = {
+    distance: 100,
+    threshold: 0.4,
+    ignoreLocation: true,
+    keys: ['title','permalink','summary','content']
+  };
+  // merge from params.fuseOpts (PaperMod style)
+  if (params && params.fuseOpts) {
+    const f = params.fuseOpts;
+    options = {
+      isCaseSensitive:   f.iscasesensitive ?? false,
+      includeScore:      f.includescore ?? false,
+      includeMatches:    f.includematches ?? false,
+      minMatchCharLength:f.minmatchcharlength ?? 1,
+      shouldSort:        f.shouldsort ?? true,
+      findAllMatches:    f.findallmatches ?? false,
+      keys:              f.keys ?? ['title','permalink','summary','content'],
+      location:          f.location ?? 0,
+      threshold:         f.threshold ?? 0.4,
+      distance:          f.distance ?? 100,
+      ignoreLocation:    f.ignorelocation ?? true
+    };
+  }
+  return options;
+}
+
+function resolveIndexCandidates() {
+  const candidates = [];
+
+  // 1) data-json on the input (recommended)
+  if (sInput && sInput.dataset && sInput.dataset.json) {
+    candidates.push(sInput.dataset.json);
+  }
+
+  // 2) <link rel="preload" as="fetch" href="...index.json">
+  const preload = document.querySelector('link[rel="preload"][as="fetch"][href$="index.json"]');
+  if (preload && preload.href) {
+    candidates.push(preload.href);
+  }
+
+  // 3) window.__BASE_URL__ (set in head.html) + index.json
+  if (window.__BASE_URL__) {
+    try { candidates.push(new URL('index.json', window.__BASE_URL__).href); } catch (e) {}
+  }
+
+  // 4) document.baseURI + index.json
+  try { candidates.push(new URL('index.json', document.baseURI).href); } catch (e) {}
+
+  // 5) handle common subpath like /search/
+  try { candidates.push(new URL('../index.json', document.baseURI).href); } catch (e) {}
+
+  // 6) absolute root as a last resort
+  try { candidates.push(new URL('/index.json', location.origin).href); } catch (e) {}
+
+  // de-dup while keeping order
+  return [...new Set(candidates)];
+}
+
+async function fetchFirstJSON(urls) {
+  for (const u of urls) {
+    try {
+      const r = await fetch(u, { credentials: 'same-origin' });
+      if (r.ok) return await r.json();
+    } catch (_) {}
+  }
+  throw new Error('Search index load failed from all candidates.');
+}
+
+function buildResults(results) {
+  if (!resList) return;
+  if (!results || results.length === 0) {
     resultsAvailable = false;
-    resList.innerHTML = sInput.value = ''; // clear inputbox and searchResults
-    sInput.focus(); // shift focus to input box
+    resList.innerHTML = '';
+    return;
+  }
+
+  let resultSet = '';
+  for (let i = 0; i < results.length; i++) {
+    const item = results[i].item || results[i]; // fuse v6 returns { item, score }
+    const title = item.title || item.permalink || 'Untitled';
+    const link  = item.permalink || '#';
+    resultSet += `
+      <li class="post-entry">
+        <header class="entry-header">${title}&nbsp;»</header>
+        <a href="${link}" aria-label="${title}"></a>
+      </li>`;
+  }
+
+  resList.innerHTML = resultSet;
+  resultsAvailable = true;
+  first = resList.firstChild;
+  last  = resList.lastChild;
 }
 
-// execute search as each character is typed
-sInput.onkeyup = function (e) {
-    // run a search query (for "term") every time a letter is typed
-    // in the search box
-    if (fuse) {
-        let results;
-        if (params.fuseOpts) {
-            results = fuse.search(this.value.trim(), {limit: params.fuseOpts.limit}); // the actual query being run using fuse.js along with options
-        } else {
-            results = fuse.search(this.value.trim()); // the actual query being run using fuse.js
-        }
-        if (results.length !== 0) {
-            // build our html if result exists
-            let resultSet = ''; // our results bucket
+// ---------- main ----------
+(async function init() {
+  if (!sInput || !resList) return;             // nothing to wire up
+  if (typeof Fuse === 'undefined') {           // ensure fuse.js is loaded
+    console.error('Fuse.js not loaded on this page.');
+    return;
+  }
 
-            for (let item in results) {
-                resultSet += `<li class="post-entry"><header class="entry-header">${results[item].item.title}&nbsp;»</header>` +
-                    `<a href="${results[item].item.permalink}" aria-label="${results[item].item.title}"></a></li>`
-            }
+  let data;
+  try {
+    data = await fetchFirstJSON(resolveIndexCandidates());
+  } catch (e) {
+    console.error(e);
+    return;
+  }
 
-            resList.innerHTML = resultSet;
-            resultsAvailable = true;
-            first = resList.firstChild;
-            last = resList.lastChild;
-        } else {
-            resultsAvailable = false;
-            resList.innerHTML = '';
-        }
+  try {
+    fuse = new Fuse(data, getFuseOptions());
+  } catch (e) {
+    console.error('Failed to initialize Fuse:', e);
+    return;
+  }
+
+  const runSearch = debounce(() => {
+    if (!fuse) return;
+    const q = sInput.value.trim();
+    if (!q) {
+      buildResults([]);
+      return;
     }
-}
-
-sInput.addEventListener('search', function (e) {
-    // clicked on x
-    if (!this.value) reset()
-})
-
-// kb bindings
-document.onkeydown = function (e) {
-    let key = e.key;
-    let ae = document.activeElement;
-
-    let inbox = document.getElementById("searchbox").contains(ae)
-
-    if (ae === sInput) {
-        let elements = document.getElementsByClassName('focus');
-        while (elements.length > 0) {
-            elements[0].classList.remove('focus');
-        }
-    } else if (current_elem) ae = current_elem;
-
-    if (key === "Escape") {
-        reset()
-    } else if (!resultsAvailable || !inbox) {
-        return
-    } else if (key === "ArrowDown") {
-        e.preventDefault();
-        if (ae == sInput) {
-            // if the currently focused element is the search input, focus the <a> of first <li>
-            activeToggle(resList.firstChild.lastChild);
-        } else if (ae.parentElement != last) {
-            // if the currently focused element's parent is last, do nothing
-            // otherwise select the next search result
-            activeToggle(ae.parentElement.nextSibling.lastChild);
-        }
-    } else if (key === "ArrowUp") {
-        e.preventDefault();
-        if (ae.parentElement == first) {
-            // if the currently focused element is first item, go to input box
-            activeToggle(sInput);
-        } else if (ae != sInput) {
-            // if the currently focused element is input box, do nothing
-            // otherwise select the previous search result
-            activeToggle(ae.parentElement.previousSibling.lastChild);
-        }
-    } else if (key === "ArrowRight") {
-        ae.click(); // click on active link
+    let results;
+    if (params && params.fuseOpts && typeof params.fuseOpts.limit !== 'undefined') {
+      results = fuse.search(q, { limit: params.fuseOpts.limit });
+    } else {
+      results = fuse.search(q);
     }
-}
+    buildResults(results);
+  }, 60);
+
+  // live search on input
+  sInput.addEventListener('input', runSearch);
+
+  // handle clearing via the native "x" in type="search"
+  sInput.addEventListener('search', function () {
+    if (!this.value) reset();
+  });
+
+  // keyboard navigation
+  document.addEventListener('keydown', function (e) {
+    const key = e.key;
+    const ae  = document.activeElement;
+    const inbox = document.getElementById('searchbox')?.contains(ae);
+
+    if (key === 'Escape') {
+      reset();
+      return;
+    }
+    if (!resultsAvailable || !inbox) return;
+
+    if (key === 'ArrowDown') {
+      e.preventDefault();
+      if (ae === sInput) {
+        activeToggle(resList.firstChild?.lastChild);
+      } else if (ae?.parentElement && ae.parentElement !== last) {
+        activeToggle(ae.parentElement.nextSibling?.lastChild);
+      }
+    } else if (key === 'ArrowUp') {
+      e.preventDefault();
+      if (ae?.parentElement === first) {
+        activeToggle(sInput);
+      } else if (ae !== sInput && ae?.parentElement?.previousSibling) {
+        activeToggle(ae.parentElement.previousSibling.lastChild);
+      }
+    } else if (key === 'ArrowRight' || key === 'Enter') {
+      if (ae && ae.click) ae.click();
+    }
+  });
+})();
