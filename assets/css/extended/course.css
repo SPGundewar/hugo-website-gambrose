@@ -1,44 +1,63 @@
 .unit-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 14px;
-    margin-top: 12px;
+    gap: 16px;
+    /* Increased gap slightly */
+    margin-top: 16px;
+    /* Increased margin slightly */
 }
 
 .unit-card {
     background: var(--entry);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 14px;
+    padding: 16px;
+    /* Increased padding slightly */
+    /* Fancy effect: Added transition, default shadow, and position for lift */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.unit-card:hover {
+    /* Lift effect on hover */
+    transform: translateY(-4px);
+    /* Stronger shadow to emphasize lift */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    z-index: 10;
 }
 
 
-/* NEW: Styles for the black box lesson indicator */
+/* Updated: Styles for the lesson indicator */
 
 .lesson-indicator {
-    /* Black box with slightly rounded corners */
-    background-color: #1a1a1a;
-    /* White/light text color */
-    color: #f5f5f5;
+    /* Reverted to a dark, non-curvy box */
+    background-color: #222;
+    color: #ffffff;
     display: inline-block;
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: var(--radius);
-    margin-bottom: 10px;
-    /* Space between indicator and title */
-    font-size: 0.85rem;
-    font-weight: 600;
+    /* Less curvy */
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
     letter-spacing: 0.5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    box-shadow: none;
+    /* Removed inner shadow */
 }
 
 .unit-title {
     margin: 0 0 6px 0;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
+    /* Slightly larger title */
 }
 
 .unit-summary {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
+    /* Increased margin */
     color: var(--secondary);
+    font-size: 0.95rem;
 }
 
 .unit-buttons a.button,
@@ -46,20 +65,46 @@
     display: inline-block;
     margin-right: 8px;
     margin-bottom: 8px;
-    padding: 6px 10px;
+    /* Reduced padding and font size for single-line fit */
+    padding: 6px 12px;
+    font-size: .85rem;
     border-radius: var(--radius);
     border: 1px solid var(--border);
     text-decoration: none;
+    /* Added transition for button hover effects */
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
     background: var(--theme);
     color: var(--primary);
-    font-size: .9rem;
+    font-weight: 600;
+    /* Subtle shadow for primary buttons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.unit-buttons a.button:hover:not(.disabled) {
+    /* Slight lift/press effect on primary button hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .unit-buttons a.button.secondary {
     background: transparent;
+    /* Use theme color for border */
+    border-color: var(--theme);
+    /* Ensures text visibility in the default state */
+    color: var(--primary);
+}
+
+.unit-buttons a.button.secondary:hover:not(.disabled) {
+    /* Fill secondary button with theme color on hover */
+    background: var(--theme);
+    /* Uses var(--primary) for high contrast text against the theme background. */
+    color: var(--primary);
+    border-color: var(--theme);
 }
 
 .unit-buttons .button.disabled {
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.5;
+    /* Slightly reduced opacity */
+    box-shadow: none;
 }
