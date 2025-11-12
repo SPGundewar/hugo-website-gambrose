@@ -1,0 +1,35 @@
+{{/* lessons.html — renders a grid of lesson cards with buttons */}}
+{{- $page := .Page -}}
+{{- $lessons := $page.Params.lessons | default (slice) -}}
+
+{{- if gt (len $lessons) 0 -}}
+  <section class="unit-grid">
+    {{- range $lessons -}}
+      {{- $code := .code -}}
+      {{- $title := .title | default $code -}}
+      {{- $summary := .summary -}}
+
+      {{- $slides := $page.Resources.GetMatch (printf "%s-slides.*" $code) -}}
+      {{- $nb     := $page.Resources.GetMatch (printf "%s-notebook.*" $code) -}}
+
+      <article class="unit-card">
+        <h3 class="unit-title">{{ $title }}</h3>
+        {{- with $summary }}<p class="unit-summary">{{ . }}</p>{{ end }}
+
+        <div class="unit-buttons">
+          {{- if $slides -}}
+            <a class="button" href="{{ $slides.RelPermalink }}" download>Slides (PDF)</a>
+          {{- end -}}
+          {{- if $nb -}}
+            <a class="button secondary" href="{{ $nb.RelPermalink }}" download>Notebook (.ipynb)</a>
+          {{- end -}}
+          {{- if and (not $slides) (not $nb) -}}
+            <span class="button disabled" title="No files uploaded yet">Files coming soon</span>
+          {{- end -}}
+        </div>
+      </article>
+    {{- end -}}
+  </section>
+{{- else -}}
+  <p><em>No lessons listed yet.</em></p>
+{{- end -}}
