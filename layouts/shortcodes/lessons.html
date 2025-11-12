@@ -9,8 +9,11 @@
       {{- $title := .title | default $code -}}
       {{- $summary := .summary -}}
 
-      {{- $slides := $page.Resources.GetMatch (printf "%s-slides.*" $code) -}}
-      {{- $nb     := $page.Resources.GetMatch (printf "%s-notebook.*" $code) -}}
+      {{/* UPDATE: Use a wildcard (*) after $code to match file names 
+      like Lesson_1_PAI 724_Fall 2022_Lesson_1-Lab.pptx 
+      */}}
+      {{- $slides := $page.Resources.GetMatch (printf "%s*-Lab.*" $code) -}}
+      {{- $nb     := $page.Resources.GetMatch (printf "%s*-notebook*" $code) -}}
 
       <article class="unit-card">
         <h3 class="unit-title">{{ $title }}</h3>
@@ -18,7 +21,7 @@
 
         <div class="unit-buttons">
           {{- if $slides -}}
-            <a class="button" href="{{ $slides.RelPermalink }}" download>Slides (PDF)</a>
+            <a class="button" href="{{ $slides.RelPermalink }}" download>Slides (PDF/PPTX)</a>
           {{- end -}}
           {{- if $nb -}}
             <a class="button secondary" href="{{ $nb.RelPermalink }}" download>Notebook (.ipynb)</a>

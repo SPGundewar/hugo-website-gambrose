@@ -1,0 +1,46 @@
+.unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.unit-card {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+}
+
+.unit-title {
+    margin: 0 0 6px 0;
+    font-size: 1.05rem;
+}
+
+.unit-summary {
+    margin: 0 0 10px 0;
+    color: var(--secondary);
+}
+
+.unit-buttons a.button,
+.unit-buttons .button {
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    background: var(--theme);
+    color: var(--primary);
+    font-size: .9rem;
+}
+
+.unit-buttons a.button.secondary {
+    background: transparent;
+}
+
+.unit-buttons .button.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}

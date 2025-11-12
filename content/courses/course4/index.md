@@ -11,6 +11,34 @@ cover:
 tags: ["Data Driven Decision Making","Computational Thinking","Python","R","Tableau","Data Visualization","Data Quality","Data Bias","Public Policy","Policy Memo","Data Analytics Life Cycle"]
 showToc: true
 disableAnchoredHeadings: false
+lessons:
+  - code: "Lesson_1"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_2"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_3"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_4"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_5"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_6"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_7"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_8"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
+  - code: "Lesson_9"
+    title: "Introduction to Data-Driven Decision Making"
+    summary: "Course overview, goals, and how data informs public decisions."
 ---
 
 ## Overview
@@ -117,6 +145,12 @@ Please review the University’s guidance and policies on select matters relatin
 | 12/5 | Community Engagement in Data Analytics | Stakeholder Engagement in the Data Analytics Life Cycle | Woods (2019) “A Design Thinking Mindset for Data Science.” <https://towardsdatascience.com/a-design-thinking-mindset-for-data-science-f94f1e27f90> ; Slunge et al. (2017) “Stakeholder Interaction in Research Processes – A Guide for Researchers and Research Groups.”; Pham et al. (2022) “The Role of Design Thinking in Big Data Innovations.” |  |  |  |
 | 12/12 | No Class – Final Project |  |  |  |  | Final Project Assignment |
 </div>
+
+---
+
+## Course Content
+
+{{< lessons >}}
 
 ---
 
