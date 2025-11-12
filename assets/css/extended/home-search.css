@@ -9,6 +9,8 @@
 
 .profile_inner #searchbox {
     width: 100%;
+    /* Added margin-bottom to separate search from news/content below */
+    margin-bottom: 20px;
 }
 
 .profile_inner #searchbox input {
@@ -27,21 +29,105 @@
     padding: 0px;
 }
 
+
+/* --- Fancy Home Search Styling --- */
+
 .home-search {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    /* Increased margin for better separation */
+}
+
+
+/* NEW: Container to position the icon */
+
+.home-search .search-input-container {
+    position: relative;
+    display: block;
 }
 
 .home-search #searchInput {
     width: 100%;
     display: block;
+    /* Aesthetics */
+    /* IMPORTANT: Increased left padding from 20px to 50px to make room for the icon */
+    padding: 12px 20px 12px 50px;
+    font-size: 1.15rem;
+    /* Larger font size */
+    border: 2px solid var(--border);
+    /* Clearer border */
+    border-radius: 12px;
+    /* Nicely rounded corners */
+    /* Subtle lift/depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+    /* Smooth transitions for focus */
+    /* Ensure background matches site theme */
+    background-color: var(--entry);
+    color: var(--primary);
 }
+
+
+/* NEW: Icon Positioning */
+
+.home-search .search-icon {
+    position: absolute;
+    left: 18px;
+    /* Positioned inside the input area */
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    width: 20px;
+    /* Icon size */
+    height: 20px;
+    color: var(--secondary);
+    /* Muted color to match placeholder */
+    pointer-events: none;
+    /* Allows clicks to pass through to the input */
+    z-index: 2;
+}
+
+.home-search #searchInput:focus {
+    /* Prominent focus effect */
+    border-color: var(--theme);
+    /* Highlight border with theme color */
+    box-shadow: 0 0 0 4px rgba(var(--theme-rgb), 0.2);
+    /* Soft theme-colored glow */
+    outline: none;
+    /* Remove default browser focus outline */
+}
+
+
+/* Search Results Styling */
 
 .home-search #searchResults {
     max-height: 420px;
-    overflow: auto;
+    overflow-y: auto;
     padding-left: 0;
+    margin-top: 10px;
+    /* Space between input and results */
+    border-radius: var(--radius);
+    background-color: var(--entry);
+    border: 1px solid var(--border);
+    list-style-type: none;
+    /* Ensure no bullet points */
 }
 
 .home-search #searchResults li {
     list-style: none;
+    padding: 10px 15px;
+    /* Padding for results */
+    border-bottom: 1px solid var(--border);
+    /* Separator line */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.home-search #searchResults li:last-child {
+    border-bottom: none;
+    /* No separator on the last item */
+}
+
+.home-search #searchResults li:hover {
+    background-color: rgba(var(--theme-rgb), 0.05);
+    /* Light hover effect using theme color */
 }

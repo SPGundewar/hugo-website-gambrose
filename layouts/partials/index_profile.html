@@ -1,167 +1,164 @@
 <div class="profile">
-    {{- with site.Params.profileMode }}
-    <div class="profile_inner">
-       {{- if .imageUrl -}}
-       {{- $img := "" }}
-       {{- if not (urls.Parse .imageUrl).IsAbs }}
-       {{- $img = resources.Get .imageUrl }}
-       {{- end }}
-       {{- if $img }}
-       {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
-       {{- if hugo.IsExtended -}}
-       {{- $processableFormats = $processableFormats | append "webp" -}}
-       {{- end -}}
-       {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
-       {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
-       {{- if (not (and (not .imageHeight) (not .imageWidth))) }}
-       {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
-       {{- else if .imageHeight }}
-       {{- $img = $img.Resize (printf "x%d" .imageHeight) }}
-       {{ else if .imageWidth }}
-       {{- $img = $img.Resize (printf "%dx" .imageWidth) }}
-       {{ else }}
-       {{- $img = $img.Resize "150x150" }}
-       {{- end }}
-       {{- end }}
-       <img draggable="false" src="{{ $img.Permalink }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
-       height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
-       {{- else }}
-       <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
-       height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
-       {{- end }}
-       {{- end }}
-       <h1>{{ .title | default site.Title | markdownify }}</h1>
-       <span>{{ .subtitle | markdownify }}</span>
-       {{- partial "social_icons.html" -}}
-       {{- with .buttons }}
-       <div class="buttons">
-          {{- range . }}
-          <a class="button" href="{{ trim .url " " }}" rel="noopener" title="{{ .name }}">
-          <span class="button-inner">
-             {{ .name }}
-             {{- if (findRE "://" .url) }}&nbsp;
-             <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="14" width="14">
-                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                <path d="M15 3h6v6"></path>
-                <path d="M10 14L21 3"></path>
-             </svg>
-             {{- end }}
-          </span>
-          </a>
-          {{- end }}
-       </div>
-       {{- end }}
-
-        <div id="searchbox" class="home-search">
-        <input id="searchInput"
-                placeholder=""
-                aria-label="search"
-                type="search"
-                autocomplete="off"
-                maxlength="64"
-                data-json="{{ "index.json" | relURL }}">
-        <ul id="searchResults" aria-label="search results"></ul>
-        </div>
-
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const input = document.getElementById('searchInput');
-        if (!input) return;
-
-        const phrases = [
-            'Knowledge is a search query away.',
-            'Search papers, courses, books and data',
-            "Try 'collaborative governance'"
-        ];
-        let i = 0, j = 0, deleting = false, t;
-
-        function type() {
-            const text = phrases[i];
-            if (!deleting) {
-            input.setAttribute('placeholder', text.slice(0, ++j));
-            if (j === text.length) { deleting = true; t = setTimeout(type, 1200); return; }
-            } else {
-            input.setAttribute('placeholder', text.slice(0, --j));
-            if (j === 0) { deleting = false; i = (i + 1) % phrases.length; }
-            }
-            t = setTimeout(type, deleting ? 35 : 55);
-        }
-
-        // Stop animation when user interacts
-        input.addEventListener('focus', () => { input.placeholder = ''; clearTimeout(t); });
-        input.addEventListener('input', () => { input.placeholder = ''; clearTimeout(t); });
-
-        type();
-        });
-        </script>
-
-
-
-       {{/* ---------- Latest news (single local item from /content/news) ---------- */}}
-        {{- $pages := where site.RegularPages "Section" "news" -}}
-        {{- if gt (len $pages) 0 -}}
-        {{- $pages = $pages.ByDate.Reverse -}}
-        <section class="home-news">
-            <h2 class="home-news-title">Latest news</h2>
-            {{- range first 1 $pages -}}
-            {{- $page := . -}}
-            {{- $imgURL := "" -}}
-            {{- $imgAlt := "News image" -}}
-
-            {{/* 1) Prefer cover.image from the page bundle, allow absolute URLs too */}}
-            {{- with $page.Params.cover -}}
-                {{- with .alt }}{{ $imgAlt = . }}{{ end -}}
-                {{- with .image -}}
-                {{- if (urls.Parse .).IsAbs -}}
-                    {{- $imgURL = . -}}
-                {{- else -}}
-                    {{- with $page.Resources.GetMatch . -}}
-                    {{- $imgURL = .RelPermalink -}}
-                    {{- else -}}
-                    {{- /* fallback if image lives under /static and a path was used */ -}}
-                    {{- $imgURL = (relURL .) -}}
-                    {{- end -}}
-                {{- end -}}
-                {{- end -}}
-            {{- end -}}
-
-            {{/* 2) If no cover.image, take the first image in the leaf bundle */}}
-            {{- if not $imgURL -}}
-                {{- with $page.Resources.ByType "image" -}}
-                {{- with index . 0 -}}
-                    {{- $imgURL = .RelPermalink -}}
-                {{- end -}}
-                {{- end -}}
-            {{- end -}}
-
-            {{- $cardClass := "home-news-card" -}}
-            {{- if eq $imgURL "" -}}
-                {{- $cardClass = printf "%s %s" $cardClass "no-image" -}}
-            {{- end -}}
-
-            <article class="{{ $cardClass }}">
-                <div class="news-text">
-                <h3 class="news-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
-                <p class="news-meta">{{ $page.Date.Format "Jan 2, 2006" }}</p>
-                {{- with $page.Summary -}}
-                    <p class="news-summary">{{ . | plainify }}</p>
-                {{- else -}}
-                    {{- $plain := $page.Plain | truncate 220 -}}
-                    <p class="news-summary">{{ $plain }}</p>
-                {{- end -}}
-                </div>
-
-                {{- if $imgURL }}
-                <div class="news-thumb">
-                <img src="{{ $imgURL }}" alt="{{ $imgAlt }}">
-                </div>
-                {{- end }}
-            </article>
+   {{- with site.Params.profileMode }}
+   <div class="profile_inner">
+      {{- if .imageUrl -}}
+      {{- $img := "" }}
+      {{- if not (urls.Parse .imageUrl).IsAbs }}
+      {{- $img = resources.Get .imageUrl }}
+      {{- end }}
+      {{- if $img }}
+      {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
+      {{- if hugo.IsExtended -}}
+      {{- $processableFormats = $processableFormats | append "webp" -}}
+      {{- end -}}
+      {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
+      {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
+      {{- if (not (and (not .imageHeight) (not .imageWidth))) }}
+      {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
+      {{- else if .imageHeight }}
+      {{- $img = $img.Resize (printf "x%d" .imageHeight) }}
+      {{ else if .imageWidth }}
+      {{- $img = $img.Resize (printf "%dx" .imageWidth) }}
+      {{ else }}
+      {{- $img = $img.Resize "150x150" }}
+      {{- end }}
+      {{- end }}
+      <img draggable="false" src="{{ $img.Permalink }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
+      height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
+      {{- else }}
+      <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
+      height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
+      {{- end }}
+      {{- end }}
+      <h1>{{ .title | default site.Title | markdownify }}</h1>
+      <span>{{ .subtitle | markdownify }}</span>
+      {{- partial "social_icons.html" -}}
+      {{- with .buttons }}
+      <div class="buttons">
+         {{- range . }}
+         <a class="button" href="{{ trim .url " " }}" rel="noopener" title="{{ .name }}">
+         <span class="button-inner">
+            {{ .name }}
+            {{- if (findRE "://" .url) }}&nbsp;
+            <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+               stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="14" width="14">
+               <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+               <path d="M15 3h6v6"></path>
+               <path d="M10 14L21 3"></path>
+            </svg>
             {{- end }}
-            <p class="home-news-more"><a href="{{ "news/" | relURL }}">More news …</a></p>
-        </section>
-        {{- end -}}
-    </div>
-    {{- end}}
- </div>
+         </span>
+         </a>
+         {{- end }}
+      </div>
+      {{- end }}
+      <div id="searchbox" class="home-search">
+         <div class="search-input-container">
+            <!-- The SVG Magnifying Glass Icon -->
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="11" cy="11" r="8"></circle>
+               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input id="searchInput"
+            placeholder=""
+            aria-label="search"
+            type="search"
+            autocomplete="off"
+            maxlength="64"
+            data-json="{{ "index.json" | relURL }}">
+         </div>
+         <ul id="searchResults" aria-label="search results"></ul>
+      </div>
+      <script>
+         document.addEventListener('DOMContentLoaded', function () {
+         const input = document.getElementById('searchInput');
+         if (!input) return;
+         
+         const phrases = [
+             'Knowledge is a search query away.',
+             'Search papers, courses, books and data',
+             "Try 'collaborative governance'"
+         ];
+         let i = 0, j = 0, deleting = false, t;
+         
+         function type() {
+             const text = phrases[i];
+             if (!deleting) {
+             input.setAttribute('placeholder', text.slice(0, ++j));
+             if (j === text.length) { deleting = true; t = setTimeout(type, 1200); return; }
+             } else {
+             input.setAttribute('placeholder', text.slice(0, --j));
+             if (j === 0) { deleting = false; i = (i + 1) % phrases.length; }
+             }
+             t = setTimeout(type, deleting ? 35 : 55);
+         }
+         
+         // Stop animation when user interacts
+         input.addEventListener('focus', () => { input.placeholder = ''; clearTimeout(t); });
+         input.addEventListener('input', () => { input.placeholder = ''; clearTimeout(t); });
+         
+         type();
+         });
+      </script>
+      {{/* ---------- Latest news (single local item from /content/news) ---------- */}}
+      {{- $pages := where site.RegularPages "Section" "news" -}}
+      {{- if gt (len $pages) 0 -}}
+      {{- $pages = $pages.ByDate.Reverse -}}
+      <section class="home-news">
+         <h2 class="home-news-title">Latest news</h2>
+         {{- range first 1 $pages -}}
+         {{- $page := . -}}
+         {{- $imgURL := "" -}}
+         {{- $imgAlt := "News image" -}}
+         {{/* 1) Prefer cover.image from the page bundle, allow absolute URLs too */}}
+         {{- with $page.Params.cover -}}
+         {{- with .alt }}{{ $imgAlt = . }}{{ end -}}
+         {{- with .image -}}
+         {{- if (urls.Parse .).IsAbs -}}
+         {{- $imgURL = . -}}
+         {{- else -}}
+         {{- with $page.Resources.GetMatch . -}}
+         {{- $imgURL = .RelPermalink -}}
+         {{- else -}}
+         {{- /* fallback if image lives under /static and a path was used */ -}}
+         {{- $imgURL = (relURL .) -}}
+         {{- end -}}
+         {{- end -}}
+         {{- end -}}
+         {{- end -}}
+         {{/* 2) If no cover.image, take the first image in the leaf bundle */}}
+         {{- if not $imgURL -}}
+         {{- with $page.Resources.ByType "image" -}}
+         {{- with index . 0 -}}
+         {{- $imgURL = .RelPermalink -}}
+         {{- end -}}
+         {{- end -}}
+         {{- end -}}
+         {{- $cardClass := "home-news-card" -}}
+         {{- if eq $imgURL "" -}}
+         {{- $cardClass = printf "%s %s" $cardClass "no-image" -}}
+         {{- end -}}
+         <article class="{{ $cardClass }}">
+            <div class="news-text">
+               <h3 class="news-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+               <p class="news-meta">{{ $page.Date.Format "Jan 2, 2006" }}</p>
+               {{- with $page.Summary -}}
+               <p class="news-summary">{{ . | plainify }}</p>
+               {{- else -}}
+               {{- $plain := $page.Plain | truncate 220 -}}
+               <p class="news-summary">{{ $plain }}</p>
+               {{- end -}}
+            </div>
+            {{- if $imgURL }}
+            <div class="news-thumb">
+               <img src="{{ $imgURL }}" alt="{{ $imgAlt }}">
+            </div>
+            {{- end }}
+         </article>
+         {{- end }}
+         <p class="home-news-more"><a href="{{ "news/" | relURL }}">More news …</a></p>
+      </section>
+      {{- end -}}
+   </div>
+   {{- end}}
+</div>

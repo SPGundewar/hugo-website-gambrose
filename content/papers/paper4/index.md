@@ -14,6 +14,9 @@ pages: "362–383"
 doi: "10.1080/25741292.2022.2109253"
 ---
 
+## Abstract
+Food policy councils, which convene diverse stakeholders in local food policymaking and implementation, are increasingly recognized for the prominent role they play in food system governance. Yet little attention has been given to systematically identifying who participates in councils, why councils are established, what topics councils are expected to address, and how they are expected to address these topics as indicated in the formal mandates that govern them. This study addresses this limitation by offering a systematic description of the design of publicly mandated food policy councils operating at the municipal-level in the United States. It contributes understanding regarding (1) council membership, (2) the contexts in which councils are established, (3) the topical foci of councils, and (4) mandated and authorized policy activities. This study yields valuable insights for scholars and practitioners interested in understanding stakeholder representation within councils, as well as the authority and responsibility vested in them.
+
 ## Links
 
 - 📄 **PDF:** [Download](paper4.pdf)
