@@ -4,10 +4,13 @@
 
 {{- if gt (len $lessons) 0 -}}
   <section class="unit-grid">
-    {{- range $lessons -}}
+    {{- range $i, $lesson := $lessons -}}
       {{- $code := .code -}}
       {{- $title := .title | default $code -}}
       {{- $summary := .summary -}}
+
+      {{/* Calculate the lesson number (index starts at 0, so add 1) */}}
+      {{- $lessonNum := add $i 1 -}}
 
       {{/* UPDATE: Use a wildcard (*) after $code to match file names 
       like Lesson_1_PAI 724_Fall 2022_Lesson_1-Lab.pptx 
@@ -16,6 +19,9 @@
       {{- $nb     := $page.Resources.GetMatch (printf "%s*-notebook*" $code) -}}
 
       <article class="unit-card">
+        {{/* NEW: Lesson indicator block */}}
+        <div class="lesson-indicator">Lesson #{{ $lessonNum }}</div>
+        
         <h3 class="unit-title">{{ $title }}</h3>
         {{- with $summary }}<p class="unit-summary">{{ . }}</p>{{ end }}
 
