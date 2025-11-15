@@ -19,19 +19,20 @@ menu:
     main:
         - name: Research Bio
           url: research/
-          weight: 7
+          weight: 1
+        - name: Papers
+          url: papers/
+          weight: 2
         - name: Courses
           url: courses/
           weight: 3
         - name: Books
           url: books/
-          weight: 5 
-        - name: Papers
-          url: papers/
-          weight: 2
-        - name: Search
-          url: search/
-          weight: 1
+          weight: 4
+        - name: Tags
+          url: tags/
+          weight: 5
+
 
 params:
     description: "This website hosts Graham Ambrose's research papers, books, course materials, data, curriculum vitae, and contact information."
