@@ -6,6 +6,6 @@ tags: ["Research", "Policy Sciences", "Collaborative Governance"]
 summary: "Press release highlights a 'mixed services transition approach' that improves implementation."
 ---
 
-NC State News covered Ambrose and Imperial’s new open-access paper in *Policy Sciences* showing that groups are more likely to succeed when they adopt a **mixed services transition approach** that pilots small implementation steps while planning continues. The release includes the DOI and an overview of the 31 estuary collaborations analyzed. :contentReference[oaicite:1]{index=1}
+NC State News covered Ambrose and Imperial’s new open-access paper in *Policy Sciences* showing that groups are more likely to succeed when they adopt a **mixed services transition approach** that pilots small implementation steps while planning continues. The release includes the DOI and an overview of the 31 estuary collaborations analyzed.
 
-**Read the release:** NC State News. :contentReference[oaicite:2]{index=2}
+**Read the release:**  [here](https://news.ncsu.edu/2025/08/collaborative-groups/)

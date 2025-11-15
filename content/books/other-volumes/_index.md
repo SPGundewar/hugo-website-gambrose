@@ -14,7 +14,4 @@ disableAnchoredHeadings: true
 
 **Editors:** Graham Ambrose
 
-### Planned contents
-- Introduction to Inclusive Governance
-- Conceptualizing Inclusive Governance across Public Affairs Sub-fields
-- Conclusion
+---
