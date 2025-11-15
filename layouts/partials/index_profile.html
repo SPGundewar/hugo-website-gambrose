@@ -69,37 +69,45 @@
          </div>
          <ul id="searchResults" aria-label="search results"></ul>
       </div>
-      <script>
-         document.addEventListener('DOMContentLoaded', function () {
-         const input = document.getElementById('searchInput');
-         if (!input) return;
-         
-         const phrases = [
-             'Knowledge is a search query away.',
-             'Search papers, courses, books and data',
-             "Try 'collaborative governance'"
-         ];
-         let i = 0, j = 0, deleting = false, t;
-         
-         function type() {
-             const text = phrases[i];
-             if (!deleting) {
-             input.setAttribute('placeholder', text.slice(0, ++j));
-             if (j === text.length) { deleting = true; t = setTimeout(type, 1200); return; }
-             } else {
-             input.setAttribute('placeholder', text.slice(0, --j));
-             if (j === 0) { deleting = false; i = (i + 1) % phrases.length; }
-             }
-             t = setTimeout(type, deleting ? 35 : 55);
-         }
-         
-         // Stop animation when user interacts
-         input.addEventListener('focus', () => { input.placeholder = ''; clearTimeout(t); });
-         input.addEventListener('input', () => { input.placeholder = ''; clearTimeout(t); });
-         
-         type();
-         });
-      </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('searchInput');
+            if (!input) return;
+
+            // Detect narrow screens (portrait phones)
+            const isNarrow = window.matchMedia('(max-width: 480px)').matches;
+
+            const phrases = isNarrow
+            ? [
+                'Search papers, courses, books',
+                "Try 'collaborative governance'"
+                ]
+            : [
+                'Knowledge is a search query away.',
+                'Search papers, courses, books and data',
+                "Try 'collaborative governance'"
+                ];
+
+            let i = 0, j = 0, deleting = false, t;
+
+            function type() {
+            const text = phrases[i];
+            if (!deleting) {
+                input.setAttribute('placeholder', text.slice(0, ++j));
+                if (j === text.length) { deleting = true; t = setTimeout(type, 1200); return; }
+            } else {
+                input.setAttribute('placeholder', text.slice(0, --j));
+                if (j === 0) { deleting = false; i = (i + 1) % phrases.length; }
+            }
+            t = setTimeout(type, deleting ? 35 : 55);
+            }
+
+            // Stop animation when user interacts
+            input.addEventListener('focus', () => { input.placeholder = ''; clearTimeout(t); });
+            input.addEventListener('input', () => { input.placeholder = ''; clearTimeout(t); });
+            type();
+        });
+        </script>
       {{/* ---------- Latest news (single local item from /content/news) ---------- */}}
       {{- $pages := where site.RegularPages "Section" "news" -}}
       {{- if gt (len $pages) 0 -}}
