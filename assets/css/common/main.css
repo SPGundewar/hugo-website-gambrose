@@ -160,8 +160,8 @@ pre:hover .copy-code {
         margin-top: 1rem;
     }
     .home-search #searchInput {
-        font-size: 1rem;
-        padding: 10px 16px 10px 44px;
+        font-size: 0.9rem;
+        padding: 10px 14px 10px 44px;
         /* a bit tighter than desktop */
     }
 }
