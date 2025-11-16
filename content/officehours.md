@@ -21,14 +21,6 @@ frameborder="0"
 marginheight="0" 
 marginwidth="0">Loading…</iframe>
 
-<iframe 
-src="https://docs.google.com/forms/d/e/1FAIpQLSdR0VCb-xaM-Jw9MDbX-diQYKFbo3HWMh8vdOi9DRN7bHj_sA/viewform?embedded=true" 
-width="640" 
-height="1281" 
-frameborder="0" 
-marginheight="0" 
-marginwidth="0">Loading…</iframe>
-
 ---
 
 ### Meeting Material Guidelines
